@@ -84,14 +84,7 @@ class MainActivity : ComponentActivity() {
         super.onResume()
         if (!destroyed && hasBtPermissions()) startServer()
     }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 100 || requestCode == 101) {
-            if (hasBtPermissions()) startServer()
-            else toast("Bluetooth permission is required for phone-to-phone chat")
-        }
-    }
+    
 
     private fun post(js: String) {
         if (!destroyed) runOnUiThread { if (!destroyed) web.evaluateJavascript(js, null) }
