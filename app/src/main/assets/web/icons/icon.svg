@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BlueThread icon">
+  <rect width="512" height="512" rx="108" fill="#2563eb"/>
+  <path d="M168 122h96c62 0 112 50 112 112v44c0 62-50 112-112 112h-96V122z" fill="#ffffff" opacity=".96"/>
+  <path d="M214 174h46c34 0 62 28 62 62v40c0 34-28 62-62 62h-46V174z" fill="#087b74"/>
+  <path d="M246 164l88 90-88 94v-68l-42 42-24-24 42-42-42-42 24-24 42 42v-68z" fill="#ffffff"/>
+</svg>

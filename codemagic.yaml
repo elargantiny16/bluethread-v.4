@@ -1,0 +1,22 @@
+workflows:
+  bluethread-android-apk:
+    name: BlueThread Android APK
+    max_build_duration: 30
+    instance_type: linux_x2
+    environment:
+      java: 21
+    scripts:
+      - name: Configure Android SDK
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      - name: Install Gradle 8.7
+        script: |
+          set -e
+          curl -L --fail --retry 3 -o /tmp/gradle.zip https://services.gradle.org/distributions/gradle-8.7-bin.zip
+          rm -rf /tmp/gradle-8.7
+          unzip -q /tmp/gradle.zip -d /tmp
+      - name: Build debug APK
+        script: |
+          /tmp/gradle-8.7/bin/gradle --no-daemon assembleDebug
+    artifacts:
+      - app/build/outputs/apk/debug/app-debug.apk

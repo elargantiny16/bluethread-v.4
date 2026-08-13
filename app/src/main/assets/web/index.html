@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="theme-color" content="#2563eb" />
+    <title>BlueThread Bluetooth Messenger</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside id="sidebar" class="panel sidebar" aria-label="Account and Bluetooth">
+        <button id="closeSettingsBtn" class="mobile-close" type="button" aria-label="Close settings">×</button>
+        <div class="brand-row">
+          <div class="mark" aria-hidden="true">BT</div>
+          <div>
+            <h1>BlueThread</h1>
+            <p id="supportText">Bluetooth chat</p>
+          </div>
+        </div>
+
+        <section class="profile-card" aria-label="User profile">
+          <div id="profileAvatar" class="avatar avatar-large" aria-hidden="true">ME</div>
+          <div class="profile-fields">
+            <label for="usernameInput">Username</label>
+            <input id="usernameInput" maxlength="24" autocomplete="nickname" spellcheck="false" />
+            <span id="userTag" class="tag-label">@you</span>
+          </div>
+        </section>
+
+        <section class="section security-section" aria-label="Encryption">
+          <div class="section-title">
+            <span>Encryption</span>
+            <span id="cryptoBadge" class="status-badge connected">On</span>
+          </div>
+          <label for="roomKeyInput">Room key</label>
+          <div class="password-row">
+            <input
+              id="roomKeyInput"
+              type="password"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="Same key on both phones"
+            />
+            <button id="toggleKeyBtn" class="secondary icon-button" type="button" aria-label="Show room key">
+              Show
+            </button>
+          </div>
+          <label class="toggle-row">
+            <input id="encryptionEnabled" type="checkbox" checked />
+            <span>Encrypt messages</span>
+          </label>
+          <p class="hint-text">Both devices must use the same room key.</p>
+        </section>
+
+        <section class="section">
+          <div class="section-title">
+            <span>Bluetooth</span>
+            <span id="statusBadge" class="status-badge idle">Idle</span>
+          </div>
+          <button id="connectBtn" class="primary" type="button">Pair device</button>
+          <div class="button-row">
+            <button id="disconnectBtn" class="secondary" type="button" disabled>Leave</button>
+            <button id="demoBtn" class="secondary" type="button">Demo chat</button>
+          </div>
+          <div id="profilePill" class="profile-pill">Auto profile</div>
+        </section>
+
+        <section class="section install-section">
+          <div class="section-title">
+            <span>App install</span>
+            <span id="installBadge" class="profile-pill">Web</span>
+          </div>
+          <button id="installBtn" class="secondary" type="button" hidden>Install app</button>
+          <p id="installHelp" class="hint-text">On Android Chrome, open from HTTPS or localhost to install.</p>
+        </section>
+
+        <details class="advanced">
+          <summary>Advanced</summary>
+          <div class="advanced-body">
+            <label class="toggle-row">
+              <input id="includeCustom" type="checkbox" />
+              <span>Try custom UUIDs</span>
+            </label>
+
+            <label for="serviceUuid">Service UUID</label>
+            <input id="serviceUuid" spellcheck="false" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+
+            <label for="writeUuid">Write characteristic</label>
+            <input id="writeUuid" spellcheck="false" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+
+            <label for="notifyUuid">Notify characteristic</label>
+            <input id="notifyUuid" spellcheck="false" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+
+            <label for="formatSelect">Message format</label>
+            <select id="formatSelect">
+              <option value="packet">Username packet</option>
+              <option value="simple">Username text</option>
+              <option value="plain">Plain text</option>
+            </select>
+
+            <label class="toggle-row">
+              <input id="appendNewline" type="checkbox" checked />
+              <span>Append newline</span>
+            </label>
+
+            <label class="toggle-row">
+              <input id="autoEcho" type="checkbox" />
+              <span>Local echo</span>
+            </label>
+          </div>
+        </details>
+      </aside>
+
+      <section class="chat-panel" aria-label="Messages">
+        <header class="chat-header">
+          <button id="settingsBtn" class="settings-button" type="button" aria-label="Open settings">☰</button>
+          <div class="channel-heading">
+            <span class="channel-symbol" aria-hidden="true">#</span>
+            <div>
+              <h2>bluetooth-room</h2>
+              <p id="connectionMeta">Ready for a device</p>
+            </div>
+          </div>
+          <div class="signal-bars" aria-hidden="true">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </header>
+
+        <div id="messages" class="messages" aria-live="polite">
+          <div class="welcome-state">
+            <div class="avatar avatar-large">BT</div>
+            <strong>Welcome to bluetooth-room</strong>
+            <span id="welcomeText">Set your username and pair a device.</span>
+          </div>
+        </div>
+
+        <form id="messageForm" class="composer">
+          <div id="composerAvatar" class="avatar avatar-small" aria-hidden="true">ME</div>
+          <textarea
+            id="messageInput"
+            rows="2"
+            maxlength="500"
+            placeholder="Message bluetooth-room"
+            aria-label="Message"
+          ></textarea>
+          <button id="sendBtn" class="send-button" type="submit" disabled>Send</button>
+        </form>
+        <footer class="app-footer" aria-label="Credits">Created by Felo Philip</footer>
+      </section>
+
+      <aside class="panel members-panel" aria-label="People and activity">
+        <section class="members-section">
+          <div class="section-title">
+            <span>Online</span>
+            <span id="memberCount" class="count-pill">1</span>
+          </div>
+          <ul class="member-list">
+            <li>
+              <div id="memberSelfAvatar" class="avatar avatar-small" aria-hidden="true">ME</div>
+              <div>
+                <strong id="memberSelfName">You</strong>
+                <span id="memberSelfTag">@you</span>
+              </div>
+            </li>
+            <li id="peerMember" hidden>
+              <div id="peerAvatar" class="avatar avatar-small" aria-hidden="true">BT</div>
+              <div>
+                <strong id="peerName">Bluetooth peer</strong>
+                <span id="peerTag">@remote</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section class="activity-section">
+          <div class="section-title">
+            <span>Activity</span>
+            <button id="clearLogBtn" class="small-button" type="button">Clear</button>
+          </div>
+          <ol id="activityLog" class="activity-log"></ol>
+        </section>
+      </aside>
+    </main>
+    <div id="mobileOverlay" class="mobile-overlay" hidden></div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
