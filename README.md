@@ -37,3 +37,7 @@ The phone that receives the incoming RFCOMM connection also acts as the server.
 This is Bluetooth Classic RFCOMM, not Web Bluetooth BLE. The original BLE UUIDs in the web version were intended for Nordic UART / HM-10 peripherals, not ordinary phone-to-phone communication.
 
 The transport now uses a 4-byte big-endian payload length followed by UTF-8 bytes, with a 64 KiB hard limit. Encryption, replay filtering, reconnect handling, and synchronized writes are implemented in the current package. Background operation still requires a foreground service for a production-grade always-on messenger.
+
+🔮 Future Roadmap:
+Integrating Qwen-2.5-Coder to help developers debug local mesh-networking issues.
+Exploring local, on-device small language models (SLMs) to summarize encrypted P2P chat histories securely without sending data to the cloud.
