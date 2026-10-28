@@ -1,43 +1,21 @@
 # BlueThread Android
+# 🧵 BlueThread v.4
+An encrypted, peer-to-peer Bluetooth messenger for Android designed for offline, secure communication.
 
-This is an Android version of the supplied BlueThread project.
+## 🌟 Overview
+BlueThread allows users to communicate securely without an internet connection or cellular network. Ideal for hackathons, robotics competitions, or emergency scenarios where networks are congested or unavailable.
 
-## What changed
+## 🔒 Security Features
+- **End-to-End Encryption:** Utilizes `AES-256-GCM` for secure message payloads.
+- **Direct Connection:** Uses Android `RFCOMM` for direct device-to-device pairing.
+- **Zero-Logging:** Messages exist only in local memory and are never stored on a central server.
 
-- The original browser Web Bluetooth implementation was replaced with a native Android Bluetooth Classic RFCOMM bridge.
-- Two Android phones can communicate directly over Bluetooth using the same BlueThread app.
-- The existing HTML/CSS UI is retained.
-- Messages are sent as UTF-8 JSON payloads over a length-prefixed binary RFCOMM frame. This avoids delimiter scanning/readLine() latency and safely supports Unicode, newlines, and compact packet boundaries.
-- Android 12+ Bluetooth permissions are included.
+## 🛠️ Tech Stack
+- **Language:** Java / Kotlin
+- **Cryptography:** AES-256-GCM
+- **Networking:** Android Bluetooth API (RFCOMM)
 
-## Build
-
-Open this folder in Android Studio.
-
-Use:
-- Android Gradle Plugin 8.6.1
-- Kotlin 2.0.21
-- compileSdk 35
-
-Then Build > Build APK(s).
-
-## Use
-
-1. Install the APK on both phones.
-2. Turn Bluetooth on.
-3. Pair the two phones in Android Bluetooth settings.
-4. Open BlueThread on both phones.
-5. On either phone, tap "Pair device" and select the other paired phone.
-6. Send messages.
-
-The phone that receives the incoming RFCOMM connection also acts as the server.
-
-## Important
-
-This is Bluetooth Classic RFCOMM, not Web Bluetooth BLE. The original BLE UUIDs in the web version were intended for Nordic UART / HM-10 peripherals, not ordinary phone-to-phone communication.
-
-The transport now uses a 4-byte big-endian payload length followed by UTF-8 bytes, with a 64 KiB hard limit. Encryption, replay filtering, reconnect handling, and synchronized writes are implemented in the current package. Background operation still requires a foreground service for a production-grade always-on messenger.
-
-🔮 Future Roadmap:
-Integrating Qwen-2.5-Coder to help developers debug local mesh-networking issues.
-Exploring local, on-device small language models (SLMs) to summarize encrypted P2P chat histories securely without sending data to the cloud.
+## 🚀 How to Build
+1. Clone this repository.
+2. Open in Android Studio.
+3. Sync Gradle and run on a physical Android device (Bluetooth emulation on virtual devices is limited).
